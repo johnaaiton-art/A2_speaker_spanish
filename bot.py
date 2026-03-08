@@ -113,18 +113,34 @@ def save_pack_to_sheet(pack_name: str, words: list):
         ws.append_row([pack_name, w["word"], w.get("english", "")])
     logger.info(f"Saved pack '{pack_name}' ({len(words)} words) to sheet")
 
-def save_vocab_word(word: str, english: str, theme: str, example: str):
+def get_student_tab_name(user: object) -> str:
+    """Return a clean sheet tab name for a student based on their Telegram identity."""
+    if user.username:
+        name = user.username          # e.g. john_smith
+    elif user.first_name:
+        name = user.first_name        # e.g. John
+        if user.last_name:
+            name += f"_{user.last_name}"
+    else:
+        name = str(user.id)           # fallback to numeric ID
+    # Clean to safe sheet tab name (max 50 chars, no special chars)
+    safe = "".join(c for c in name if c.isalnum() or c in "_- ")[:50]
+    return safe.strip() or str(user.id)
+
+def save_vocab_word(word: str, english: str, theme: str, example: str, user: object):
     try:
-        client = get_sheet_client()
-        sheet  = client.open_by_key(SHEET_ID)
-        ws     = get_or_create_tab(
-            sheet, TAB_VOCAB,
+        client   = get_sheet_client()
+        sheet    = client.open_by_key(SHEET_ID)
+        tab_name = get_student_tab_name(user)
+        ws       = get_or_create_tab(
+            sheet, tab_name,
             ["Date", "Word", "English", "Theme", "Example", "Status"]
         )
         ws.append_row([
             datetime.now().strftime("%Y-%m-%d"),
             word, english, theme, example, "new"
         ])
+        logger.info(f"Saved '{word}' to tab '{tab_name}'")
     except Exception as e:
         logger.error(f"Failed to save vocab word: {e}")
 
@@ -340,9 +356,9 @@ async def send_word(chat_id: int, context: ContextTypes.DEFAULT_TYPE, s: dict):
     audio_path = await make_tts(question)
 
     kb = [
-        [InlineKeyboardButton("🆘 No entiendo", callback_data="help"),
-         InlineKeyboardButton("🔊 Repetir",     callback_data="repeat")],
-        [InlineKeyboardButton("⏭ Otra palabra", callback_data="skip")]
+        [InlineKeyboardButton("🆘 I don't understand", callback_data="help"),
+         InlineKeyboardButton("🔊 Repeat", callback_data="repeat")],
+        [InlineKeyboardButton("⏭ Skip word", callback_data="skip")]
     ]
     markup = InlineKeyboardMarkup(kb)
 
@@ -350,14 +366,14 @@ async def send_word(chat_id: int, context: ContextTypes.DEFAULT_TYPE, s: dict):
         with open(audio_path, "rb") as f:
             await context.bot.send_voice(
                 chat_id=chat_id, voice=f,
-                caption=f"🎤 {question}\n\n_Manda un mensaje de voz con tu respuesta_",
+                caption=f"🎤 {question}\n\nSend a voice message with your answer",
                 parse_mode="Markdown", reply_markup=markup
             )
         os.remove(audio_path)
     else:
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"🎤 *{question}*\n\n_Manda un mensaje de voz con tu respuesta_",
+            text=f"🎤 {question}\n\nSend a voice message with your answer",
             parse_mode="Markdown", reply_markup=markup
         )
 
@@ -365,43 +381,43 @@ async def send_word(chat_id: int, context: ContextTypes.DEFAULT_TYPE, s: dict):
 
 async def cmd_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     packs     = all_packs()
-    pack_list = "\n".join(f"  • {k} ({len(v)} palabras)" for k, v in packs.items())
+    pack_list = "\n".join(f"  • {k} ({len(v)} words)" for k, v in packs.items())
     await update.message.reply_text(
-        "¡Hola! Soy *HablaRápido* 🇪🇸\n\n"
-        "Te ayudo a practicar español A2 hablando.\n\n"
-        "*Comandos:*\n"
-        "/nuevas — empezar con el siguiente tema\n"
-        "/temas — ver todos los temas disponibles\n"
-        "/tema comida — elegir un tema específico\n\n"
-        "*Temas disponibles:*\n"
+        "Hi! I'm HablaRápido 🇪🇸\n\n"
+        "I help you practice Spanish A2 vocabulary through speaking.\n\n"
+        "Commands:\n"
+        "/nuevas — start next topic\n"
+        "/temas — see all available topics\n"
+        "/tema comida — choose a specific topic\n\n"
+        "Available topics:\n"
         f"{pack_list}\n\n"
-        "_Para añadir un pack personalizado, envíame un archivo .json_",
-        parse_mode="Markdown"
+        "To add a custom word pack, send me a .json file.",
+        parse_mode=None
     )
 
 async def cmd_temas(update: Update, context: ContextTypes.DEFAULT_TYPE):
     packs   = all_packs()
     builtin = [k for k in packs if k in builtin_packs]
     custom  = [k for k in packs if k not in builtin_packs]
-    msg = "*Temas disponibles:*\n\n"
-    msg += "*Integrados:*\n" + "\n".join(
+    msg = "Available topics:\n\n"
+    msg += "Built-in:\n" + "\n".join(
         f"  • {k} ({len(packs[k])} palabras)" for k in builtin
     )
     if custom:
-        msg += "\n\n*Personalizados (Google Sheets):*\n" + "\n".join(
+        msg += "\n\nCustom (Google Sheets):\n" + "\n".join(
             f"  • {k} ({len(packs[k])} palabras)" for k in custom
         )
-    msg += "\n\nUsa /tema [nombre] para elegir uno."
+    msg += "\n\nUse /tema [name] to choose one."
     await update.message.reply_text(msg, parse_mode="Markdown")
 
 async def cmd_tema(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await update.message.reply_text("Escribe el nombre del tema: /tema comida")
+        await update.message.reply_text("Write the topic name: /tema comida")
         return
     theme = context.args[0].lower().strip()
     if theme not in all_packs():
         await update.message.reply_text(
-            f"No encuentro el tema '{theme}'.\nUsa /temas para ver los disponibles."
+            f"Topic '{theme}' not found.\nUse /temas to see available topics."
         )
         return
     await start_theme(update, context, theme)
@@ -417,9 +433,8 @@ async def start_theme(update: Update, context: ContextTypes.DEFAULT_TYPE, theme:
     s["index"]            = 0
     s["current_question"] = None
     await update.message.reply_text(
-        f"🗂 Tema: *{theme.replace('_', ' ').capitalize()}*  —  "
-        f"{len(s['words'])} palabras. ¡Vamos! 💪",
-        parse_mode="Markdown"
+        f"🗂 Topic: {theme.replace('_', ' ').capitalize()}  —  {len(s['words'])} words. Let's go! 💪",
+        parse_mode=None
     )
     await send_word(update.effective_chat.id, context, s)
 
@@ -427,10 +442,10 @@ async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """Handle .json file upload to add a custom word pack."""
     doc = update.message.document
     if not doc.file_name.endswith(".json"):
-        await update.message.reply_text("Por favor envía un archivo .json")
+        await update.message.reply_text("Please send a .json file")
         return
 
-    await update.message.reply_text("⏳ Procesando tu pack...")
+    await update.message.reply_text("⏳ Processing your pack...")
 
     file     = await doc.get_file()
     tmp_path = f"/tmp/pack_{uuid.uuid4()}.json"
@@ -456,28 +471,28 @@ async def handle_document(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     for pack_name, words in data.items():
         if not isinstance(words, list):
-            errors.append(f"'{pack_name}' — debe ser una lista")
+            errors.append(f"'{pack_name}' — must be a list")
             continue
         valid = [w for w in words if isinstance(w, dict) and "word" in w]
         if not valid:
-            errors.append(f"'{pack_name}' — no hay palabras válidas")
+            errors.append(f"'{pack_name}' — no valid words found")
             continue
         try:
             save_pack_to_sheet(pack_name, valid)
             custom_packs[pack_name] = valid
-            saved.append(f"'{pack_name}' ({len(valid)} palabras)")
+            saved.append(f"'{pack_name}' ({len(valid)} words)")
         except Exception as e:
             errors.append(f"'{pack_name}' — error guardando: {e}")
 
     msg = ""
     if saved:
-        msg += "✅ *Packs guardados en Google Sheets:*\n" + "\n".join(f"  • {s}" for s in saved)
-        msg += "\n\n_Imágenes se generarán en tiempo real para estos packs._"
+        msg += "✅ Packs saved to Google Sheets:\n" + "\n".join(f"  • {s}" for s in saved)
+        msg += "\n\nImages will be generated on the fly for these packs."
     if errors:
         msg += "\n\n⚠️ *Errores:*\n" + "\n".join(f"  • {e}" for e in errors)
     if not saved and not errors:
-        msg = "❌ No se encontraron packs válidos."
-    msg += "\n\nUsa /temas para ver todos los temas."
+        msg = "❌ No valid packs found."
+    msg += "\n\nUse /temas to see all topics."
     await update.message.reply_text(msg, parse_mode="Markdown")
 
 async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -485,7 +500,7 @@ async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     s       = get_session(user_id)
 
     if not s.get("current_question"):
-        await update.message.reply_text("Usa /nuevas para empezar una sesión.")
+        await update.message.reply_text("Use /nuevas to start a session.")
         return
 
     await context.bot.send_chat_action(chat_id=update.effective_chat.id, action="typing")
@@ -497,7 +512,7 @@ async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     os.remove(voice_path)
 
     if not user_text:
-        await update.message.reply_text("No pude entender el audio. ¡Intenta de nuevo! 🎤")
+        await update.message.reply_text("Could not understand the audio. Please try again! 🎤")
         return
 
     feedback = await deepseek(
@@ -518,8 +533,8 @@ async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
     audio_path = await make_tts(corrected or s["current_question"])
 
     kb = [
-        [InlineKeyboardButton("✅ ¡Me sirve! (guardar)", callback_data="save"),
-         InlineKeyboardButton("⏭ Siguiente",             callback_data="next")]
+        [InlineKeyboardButton("✅ Save this word", callback_data="save"),
+         InlineKeyboardButton("⏭ Next", callback_data="next")]
     ]
     markup = InlineKeyboardMarkup(kb)
 
@@ -551,13 +566,13 @@ async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         try:
             await query.edit_message_caption(
-                caption=f"✅ *{s['current_word']}* guardada en tu lista!",
+                caption=f"✅ {s['current_word']} saved to your list!",
                 parse_mode="Markdown"
             )
         except Exception:
             await context.bot.send_message(
                 chat_id=chat_id,
-                text=f"✅ *{s['current_word']}* guardada en tu lista!",
+                text=f"✅ {s['current_word']} saved to your list!",
                 parse_mode="Markdown"
             )
         await advance_to_next(chat_id, context, s)
@@ -586,28 +601,28 @@ async def send_help(chat_id: int, context: ContextTypes.DEFAULT_TYPE, s: dict):
             f"Simplify this A2 Spanish question into shorter, easier words. "
             f"Add a vocabulary hint in brackets. Question: '{q}'. One sentence only."
         )
-        text = f"🆘 *Más fácil:*\n\n{simplified}"
+        text = f"🆘 Simpler version:\n\n{simplified}"
     elif level == 2:
         translated = await deepseek(
             f"Translate this Spanish question to English, then give a simple model answer in Spanish.\n"
             f"Question: '{q}'\nFormat:\nEN: [translation]\nModelo: [simple Spanish answer]"
         )
-        text = f"🇬🇧 *Traducción + Modelo:*\n\n{translated}"
+        text = f"🇬🇧 Translation + Model answer:\n\n{translated}"
     else:
         model = await deepseek(
             f"Give a very simple 1-sentence model answer to this question for an A2 learner: '{q}'. "
             f"Spanish only."
         )
-        text = f"💡 *Ejemplo completo:*\n\n{model}\n\n_Intenta repetir esta frase_ 🎤"
+        text = f"💡 Full example:\n\n{model}\n\nTry repeating this sentence 🎤"
 
     kb = [
-        [InlineKeyboardButton("🔊 Escuchar",    callback_data="repeat"),
-         InlineKeyboardButton("🆘 Más ayuda",   callback_data="help")],
-        [InlineKeyboardButton("⏭ Otra palabra", callback_data="skip")]
+        [InlineKeyboardButton("🔊 Listen again", callback_data="repeat"),
+         InlineKeyboardButton("🆘 More help", callback_data="help")],
+        [InlineKeyboardButton("⏭ Skip word", callback_data="skip")]
     ]
     await context.bot.send_message(
         chat_id=chat_id, text=text,
-        parse_mode="Markdown",
+        parse_mode=None,
         reply_markup=InlineKeyboardMarkup(kb)
     )
 
@@ -616,18 +631,16 @@ async def advance_to_next(chat_id: int, context: ContextTypes.DEFAULT_TYPE, s: d
     if s["index"] < len(s["words"]):
         await context.bot.send_message(
             chat_id=chat_id,
-            text=f"Palabra {s['index'] + 1} de {len(s['words'])}..."
+            text=f"Word {s['index'] + 1} of {len(s['words'])}..."
         )
         await send_word(chat_id, context, s)
     else:
         await context.bot.send_message(
             chat_id=chat_id,
             text=(
-                "🎉 *¡Sesión completada!* ¡Muy bien!\n\n"
-                "Usa /nuevas para el siguiente tema\n"
-                "o /temas para elegir uno."
+                "🎉 Session complete! Well done!\n\nUse /nuevas for the next topic\nor /temas to choose one."
             ),
-            parse_mode="Markdown"
+            parse_mode=None
         )
         s["current_question"] = None
 
