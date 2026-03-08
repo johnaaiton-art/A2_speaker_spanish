@@ -173,7 +173,7 @@ async def deepseek(prompt: str) -> str:
 
 # ─── GOOGLE TTS (Chirp) ───────────────────────────────────────────────────────
 
-async def make_tts(text: str) -> str | None:
+async def make_tts(text: str) -> object:
     try:
         creds    = Credentials.from_service_account_file(GOOGLE_CREDS)
         client   = texttospeech.TextToSpeechClient(credentials=creds)
@@ -197,7 +197,7 @@ async def make_tts(text: str) -> str | None:
 
 # ─── GOOGLE STT ───────────────────────────────────────────────────────────────
 
-async def transcribe_voice(path: str) -> str | None:
+async def transcribe_voice(path: str) -> object:
     try:
         creds  = Credentials.from_service_account_file(GOOGLE_CREDS)
         client = speech.SpeechClient(credentials=creds)
@@ -220,7 +220,7 @@ async def transcribe_voice(path: str) -> str | None:
 
 # ─── YANDEX ART (on-the-fly, for custom packs only) ──────────────────────────
 
-async def generate_image_yandex_async(word: str, english: str) -> bytes | None:
+async def generate_image_yandex_async(word: str, english: str) -> object:
     """Async Yandex Art generation — used only for custom pack words."""
     prompt = (
         f"Simple colorful cartoon illustration for Spanish vocabulary learning. "
