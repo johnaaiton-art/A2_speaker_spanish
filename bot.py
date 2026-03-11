@@ -478,9 +478,7 @@ async def handle_grammar_text_answer(
     s["grammar_awaiting_text"] = False
 
     # Save to Sheets
-    asyncio.create_task(
-        asyncio.to_thread(save_grammar_result, user_id, q, text, correct)
-    )
+    save_grammar_result(user_id, q, text, correct)
 
     result_icon = "✅" if correct else "❌"
     full_sent   = q["full_sentence"]
