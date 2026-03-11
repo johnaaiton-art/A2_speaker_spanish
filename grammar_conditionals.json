@@ -1,0 +1,123 @@
+[
+  {
+    "id": "c2_001",
+    "tense": "second_conditional",
+    "tense_label": "Segunda condicional (situación hipotética, presente/futuro)",
+    "subject": "yo",
+    "sentence": "Si [tener] más dinero, viajaría por todo el mundo.",
+    "answer": "tuviera",
+    "full_sentence": "Si tuviera más dinero, viajaría por todo el mundo.",
+    "speaking_question": "Si tuvieras más tiempo libre, ¿qué harías?",
+    "notes": "The 'if' verb uses -ara/-iera (imperfecto de subjuntivo)"
+  },
+  {
+    "id": "c2_002",
+    "tense": "second_conditional",
+    "tense_label": "Segunda condicional (situación hipotética, presente/futuro)",
+    "subject": "ella",
+    "sentence": "Si ella [poder] elegir, viviría cerca del mar.",
+    "answer": "pudiera",
+    "full_sentence": "Si ella pudiera elegir, viviría cerca del mar.",
+    "speaking_question": "Si pudieras vivir en cualquier lugar, ¿dónde vivirías?",
+    "notes": "The 'if' verb uses -ara/-iera (imperfecto de subjuntivo)"
+  },
+  {
+    "id": "c2_003",
+    "tense": "second_conditional",
+    "tense_label": "Segunda condicional (situación hipotética, presente/futuro)",
+    "subject": "nosotros",
+    "sentence": "Si nosotros [hablar] mejor inglés, conseguiríamos el trabajo.",
+    "answer": "habláramos",
+    "full_sentence": "Si nosotros habláramos mejor inglés, conseguiríamos el trabajo.",
+    "speaking_question": "Si hablaras otro idioma perfectamente, ¿qué idioma sería?",
+    "notes": "The 'if' verb uses -ara/-iera (imperfecto de subjuntivo)"
+  },
+  {
+    "id": "c2_004",
+    "tense": "second_conditional",
+    "tense_label": "Segunda condicional (situación hipotética, presente/futuro)",
+    "subject": "tú",
+    "sentence": "Si tú [ser] famoso, ¿te gustaría la vida pública?",
+    "answer": "fueras",
+    "full_sentence": "Si tú fueras famoso, ¿te gustaría la vida pública?",
+    "speaking_question": "Si fueras famoso, ¿cómo sería tu vida?",
+    "notes": "The 'if' verb uses -ara/-iera (imperfecto de subjuntivo)"
+  },
+  {
+    "id": "c2_005",
+    "tense": "second_conditional",
+    "tense_label": "Segunda condicional (situación hipotética, presente/futuro)",
+    "subject": "ellos",
+    "sentence": "Si ellos [hacer] más ejercicio, se sentirían mejor.",
+    "answer": "hicieran",
+    "full_sentence": "Si ellos hicieran más ejercicio, se sentirían mejor.",
+    "speaking_question": "Si hicieras más ejercicio, ¿cómo te sentirías?",
+    "notes": "The 'if' verb uses -ara/-iera (imperfecto de subjuntivo)"
+  },
+  {
+    "id": "c2_006",
+    "tense": "second_conditional",
+    "tense_label": "Segunda condicional (situación hipotética, presente/futuro)",
+    "subject": "yo",
+    "sentence": "Si [saber] cocinar bien, haría cenas especiales cada semana.",
+    "answer": "supiera",
+    "full_sentence": "Si supiera cocinar bien, haría cenas especiales cada semana.",
+    "speaking_question": "Si supieras cocinar perfecto, ¿qué plato harías más?",
+    "notes": "The 'if' verb uses -ara/-iera (imperfecto de subjuntivo)"
+  },
+  {
+    "id": "c3_001",
+    "tense": "third_conditional",
+    "tense_label": "Tercera condicional (situación hipotética, pasado — ya no es posible)",
+    "subject": "yo",
+    "sentence": "Si [estudiar] más, habría aprobado el examen.",
+    "answer": "hubiera estudiado",
+    "full_sentence": "Si hubiera estudiado más, habría aprobado el examen.",
+    "speaking_question": "¿Hubo algo en el pasado que harías diferente si pudieras?",
+    "notes": "The 'if' verb uses hubiera/hubiese + participio"
+  },
+  {
+    "id": "c3_002",
+    "tense": "third_conditional",
+    "tense_label": "Tercera condicional (situación hipotética, pasado — ya no es posible)",
+    "subject": "ella",
+    "sentence": "Si ella [llegar] a tiempo, no habría perdido el tren.",
+    "answer": "hubiera llegado",
+    "full_sentence": "Si ella hubiera llegado a tiempo, no habría perdido el tren.",
+    "speaking_question": "¿Cuándo llegaste tarde a algo importante? ¿Qué habría pasado si llegas antes?",
+    "notes": "The 'if' verb uses hubiera/hubiese + participio"
+  },
+  {
+    "id": "c3_003",
+    "tense": "third_conditional",
+    "tense_label": "Tercera condicional (situación hipotética, pasado — ya no es posible)",
+    "subject": "nosotros",
+    "sentence": "Si nosotros [saber] la verdad, habríamos actuado de otra manera.",
+    "answer": "hubiéramos sabido",
+    "full_sentence": "Si nosotros hubiéramos sabido la verdad, habríamos actuado de otra manera.",
+    "speaking_question": "¿Hubo una situación donde la información llegó demasiado tarde?",
+    "notes": "The 'if' verb uses hubiera/hubiese + participio"
+  },
+  {
+    "id": "c3_004",
+    "tense": "third_conditional",
+    "tense_label": "Tercera condicional (situación hipotética, pasado — ya no es posible)",
+    "subject": "tú",
+    "sentence": "Si tú [comer] antes, no tendrías hambre ahora.",
+    "answer": "hubieras comido",
+    "full_sentence": "Si tú hubieras comido antes, no tendrías hambre ahora.",
+    "speaking_question": "¿Qué habrías hecho diferente ayer si hubieras tenido más tiempo?",
+    "notes": "The 'if' verb uses hubiera/hubiese + participio"
+  },
+  {
+    "id": "c3_005",
+    "tense": "third_conditional",
+    "tense_label": "Tercera condicional (situación hipotética, pasado — ya no es posible)",
+    "subject": "ellos",
+    "sentence": "Si ellos [trabajar] juntos, habrían terminado antes.",
+    "answer": "hubieran trabajado",
+    "full_sentence": "Si ellos hubieran trabajado juntos, habrían terminado antes.",
+    "speaking_question": "¿Cuándo fue útil trabajar en equipo para ti?",
+    "notes": "The 'if' verb uses hubiera/hubiese + participio"
+  }
+]

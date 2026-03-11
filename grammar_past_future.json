@@ -1,0 +1,200 @@
+[
+  {
+    "id": "ps_001",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "yo",
+    "sentence": "Ayer [hacer] los deberes después de cenar.",
+    "answer": "hice",
+    "full_sentence": "Ayer hice los deberes después de cenar.",
+    "speaking_question": "¿Qué hiciste ayer por la tarde?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_002",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "yo",
+    "sentence": "La semana pasada [decir] la verdad a mi amigo.",
+    "answer": "dije",
+    "full_sentence": "La semana pasada dije la verdad a mi amigo.",
+    "speaking_question": "¿Cuándo dijiste algo importante a un amigo?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_003",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "ella",
+    "sentence": "Ayer ella [ir] al mercado por la mañana.",
+    "answer": "fue",
+    "full_sentence": "Ayer ella fue al mercado por la mañana.",
+    "speaking_question": "¿Adónde fuiste la última vez de compras?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_004",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "nosotros",
+    "sentence": "El fin de semana pasado nosotros [tener] una fiesta en casa.",
+    "answer": "tuvimos",
+    "full_sentence": "El fin de semana pasado nosotros tuvimos una fiesta en casa.",
+    "speaking_question": "¿Cuándo fue la última vez que tuviste una fiesta?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_005",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "ellos",
+    "sentence": "Ayer ellos [venir] a casa a las ocho.",
+    "answer": "vinieron",
+    "full_sentence": "Ayer ellos vinieron a casa a las ocho.",
+    "speaking_question": "¿Cuándo vino alguien a visitarte últimamente?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_006",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "tú",
+    "sentence": "Anoche tú [poder] dormir bien, ¿verdad?",
+    "answer": "pudiste",
+    "full_sentence": "Anoche tú pudiste dormir bien, ¿verdad?",
+    "speaking_question": "¿Cuándo fue la última vez que no pudiste dormir bien?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_007",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "yo",
+    "sentence": "El año pasado yo [hablar] con mi jefe sobre el trabajo.",
+    "answer": "hablé",
+    "full_sentence": "El año pasado yo hablé con mi jefe sobre el trabajo.",
+    "speaking_question": "¿Cuándo hablaste con alguien importante para ti?",
+    "verb_type": "regular"
+  },
+  {
+    "id": "ps_008",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "nosotros",
+    "sentence": "Ayer nosotros [comer] pizza en el restaurante.",
+    "answer": "comimos",
+    "full_sentence": "Ayer nosotros comimos pizza en el restaurante.",
+    "speaking_question": "¿Qué comiste ayer que te gustó?",
+    "verb_type": "regular"
+  },
+  {
+    "id": "ps_009",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "él",
+    "sentence": "La semana pasada él [saber] la respuesta correcta.",
+    "answer": "supo",
+    "full_sentence": "La semana pasada él supo la respuesta correcta.",
+    "speaking_question": "¿Cuándo supiste algo que te sorprendió?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "ps_010",
+    "tense": "past_simple",
+    "tense_label": "Pretérito indefinido (pasado simple)",
+    "subject": "ellas",
+    "sentence": "Ayer ellas [vivir] una experiencia increíble en el parque.",
+    "answer": "vivieron",
+    "full_sentence": "Ayer ellas vivieron una experiencia increíble en el parque.",
+    "speaking_question": "¿Cuándo viviste una experiencia especial?",
+    "verb_type": "regular"
+  },
+  {
+    "id": "fs_001",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "yo",
+    "sentence": "Mañana yo [hablar] con mi profesora sobre el examen.",
+    "answer": "hablaré",
+    "full_sentence": "Mañana yo hablaré con mi profesora sobre el examen.",
+    "speaking_question": "¿Con quién hablarás esta semana?",
+    "verb_type": "regular"
+  },
+  {
+    "id": "fs_002",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "yo",
+    "sentence": "El próximo año yo [tener] más tiempo libre.",
+    "answer": "tendré",
+    "full_sentence": "El próximo año yo tendré más tiempo libre.",
+    "speaking_question": "¿Qué tendrás el próximo año que no tienes ahora?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "fs_003",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "ella",
+    "sentence": "Mañana ella [decir] la verdad a su familia.",
+    "answer": "dirá",
+    "full_sentence": "Mañana ella dirá la verdad a su familia.",
+    "speaking_question": "¿Qué dirás a tu familia esta semana?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "fs_004",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "nosotros",
+    "sentence": "El año que viene nosotros [vivir] en una ciudad diferente.",
+    "answer": "viviremos",
+    "full_sentence": "El año que viene nosotros viviremos en una ciudad diferente.",
+    "speaking_question": "¿Dónde vivirás en el futuro?",
+    "verb_type": "regular"
+  },
+  {
+    "id": "fs_005",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "ellos",
+    "sentence": "La próxima semana ellos [hacer] un viaje a la playa.",
+    "answer": "harán",
+    "full_sentence": "La próxima semana ellos harán un viaje a la playa.",
+    "speaking_question": "¿Qué harás el próximo fin de semana?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "fs_006",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "tú",
+    "sentence": "Mañana tú [poder] descansar todo el día.",
+    "answer": "podrás",
+    "full_sentence": "Mañana tú podrás descansar todo el día.",
+    "speaking_question": "¿Cuándo podrás tomarte unas vacaciones?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "fs_007",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "yo",
+    "sentence": "El próximo mes yo [haber] terminado el proyecto.",
+    "answer": "habré",
+    "full_sentence": "El próximo mes yo habré terminado el proyecto.",
+    "speaking_question": "¿Qué habrás conseguido al final del año?",
+    "verb_type": "irregular"
+  },
+  {
+    "id": "fs_008",
+    "tense": "future_simple",
+    "tense_label": "Futuro simple",
+    "subject": "él",
+    "sentence": "Mañana él [salir] temprano para el trabajo.",
+    "answer": "saldrá",
+    "full_sentence": "Mañana él saldrá temprano para el trabajo.",
+    "speaking_question": "¿A qué hora saldrás mañana de casa?",
+    "verb_type": "irregular"
+  }
+]
